@@ -1,0 +1,128 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, p {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.card-link {
+    align-content: center;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 0 0.2rem 0.3rem rgba(0, 0, 0, 0.1);
+    border-radius: 0.2rem;
+    width: 40%;
+}
+
+.container-row {
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+    justify-content: space-around;
+    justify-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+}
+
+.card {
+    align-content: center;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 0 0.2rem 0.3rem rgba(0, 0, 0, 0.1);
+    border-radius: 0.2rem;
+    row-gap: 0.5rem;
+    width: 100%;
+}
+
+.card-text {
+    font-weight: 500;
+}
+
+.button {
+    height: 2rem;
+    width: 5rem;
+    border: none;
+    box-shadow: 0 0 0.3rem 0.2rem rgba(0, 0, 0, 0.1);
+    background: white;
+
+}
+
+.button:hover {
+    box-shadow: 0 0 0.3rem 0.3rem rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.container-income {
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 1rem;
+    width: 60%;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.input {
+    height: 1rem;
+    width: 20%;
+    border: none;
+    box-shadow: 0 0 0.4rem 0.3rem rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+}
+
+.input:focus {
+    box-shadow: 0 0 0.4rem 0.3rem rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+.label {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.textarea {
+    width: 50%;
+    border: none;
+    box-shadow: 0 0 0.4rem 0.3rem rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+}
+
+.textarea:focus {
+    box-shadow: 0 0 0.4rem 0.3rem rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+.a-text {
+    text-decoration: none;
+    color: black;
+}

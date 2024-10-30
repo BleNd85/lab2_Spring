@@ -1,11 +1,15 @@
 package org.example.lab2.Service.Implementation;
 
 import org.example.lab2.Model.IncomeEntity;
+import org.example.lab2.Model.UserEntity;
 import org.example.lab2.Repository.IncomeRepository;
+import org.example.lab2.Repository.UserRepository;
 import org.example.lab2.Service.IncomeService;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class IncomeServiceImplementation implements IncomeService {
     private IncomeRepository incomeRepository;
 
