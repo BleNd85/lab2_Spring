@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.util.Calendar;
 
+import static java.lang.Double.sum;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -60,6 +62,8 @@ public class UserController {
             calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
             endDate = new Date(calendar.getTimeInMillis());
         }
+        model.addAttribute("incomeForThisTime", incomeService.findByUserIdAndDateRange(id, startDate, endDate).stream().mapToDouble(IncomeEntity::getAmount).sum());
+        model.addAttribute("expenseForThisTime", expenseService.findByUserIdAndDateRange(id, startDate, endDate).stream().mapToDouble(ExpenseEntity::getAmount).sum());
         model.addAttribute("incomes", incomeService.findByUserIdAndDateRange(id, startDate, endDate));
         model.addAttribute("expenses", expenseService.findByUserIdAndDateRange(id, startDate, endDate));
         model.addAttribute("startDate", startDate);
