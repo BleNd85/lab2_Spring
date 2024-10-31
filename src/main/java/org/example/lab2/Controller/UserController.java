@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.util.Calendar;
 
-import static java.lang.Double.sum;
 
 @Controller
 @RequestMapping("/user")
@@ -31,21 +30,6 @@ public class UserController {
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.findAll());
         return "users";
-    }
-
-    @PostMapping("/add")
-    public ResponseEntity<?> addUser() {
-        UserEntity user = new UserEntity()
-                .builder()
-                .name("Ivan")
-                .budget(0.0)
-                .build();
-        UserEntity savedUser = userService.save(user);
-        if (savedUser != null) {
-            return ResponseEntity.ok(savedUser.getName());
-        } else {
-            return ResponseEntity.ok("error");
-        }
     }
 
     @GetMapping("/{id}")
@@ -69,28 +53,6 @@ public class UserController {
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         return "user-details";
-    }
-
-    @PutMapping("/edit/{id}")
-    public ResponseEntity<?> updateUser(@RequestBody UserEntity user, @PathVariable Integer id) {
-        userService.findById(id)
-                .map(oldUser -> {
-                    oldUser.setName(user.getName());
-                    oldUser.setBudget(user.getBudget());
-                    userService.save(oldUser);
-                    return null;
-                });
-        return ResponseEntity.ok("user is saved");
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
-        return ResponseEntity.ok(userService.deleteById(id));
-    }
-
-    @GetMapping("/{id}/income/all")
-    public ResponseEntity<?> getIncome(@PathVariable Integer id) {
-        return ResponseEntity.ok(incomeService.findByUserId(id));
     }
 
     @GetMapping("/{id}/expense/new")
@@ -139,4 +101,41 @@ public class UserController {
         return "redirect:/user/" + id;
     }
 
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<?> updateUser(@RequestBody UserEntity user, @PathVariable Integer id) {
+        userService.findById(id)
+                .map(oldUser -> {
+                    oldUser.setName(user.getName());
+                    oldUser.setBudget(user.getBudget());
+                    userService.save(oldUser);
+                    return null;
+                });
+        return ResponseEntity.ok("user is saved");
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getUsers() {
+        return ResponseEntity.ok(userService.findAll());
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addUser(@RequestBody UserEntity user) {
+        UserEntity newUser = new UserEntity()
+                .builder()
+                .name(user.getName())
+                .budget(user.getBudget())
+                .build();
+        UserEntity savedUser = userService.save(newUser);
+        return ResponseEntity.ok(savedUser);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+        return ResponseEntity.ok(userService.deleteById(id));
+    }
+
+    @GetMapping("/{id}/income/all")
+    public ResponseEntity<?> getIncome(@PathVariable Integer id) {
+        return ResponseEntity.ok(incomeService.findByUserId(id));
+    }
 }

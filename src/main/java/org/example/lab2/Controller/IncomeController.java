@@ -4,13 +4,9 @@ package org.example.lab2.Controller;
 import org.example.lab2.Model.IncomeEntity;
 import org.example.lab2.Service.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Date;
-import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/income")
@@ -44,23 +40,23 @@ public class IncomeController {
     }
 
     @PostMapping("/{id}/delete")
-    public String editExpense(@PathVariable Integer id) {
+    public String deleteIncome(@PathVariable Integer id) {
         String userId = String.valueOf(incomeService.findById(id).get().getUserId());
         incomeService.delete(id);
         return "redirect:/user/" + userId;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addIncome(@RequestParam Integer userId) {
+    /*@PostMapping("/add")
+    public ResponseEntity<?> addIncome(@ModelAttribute IncomeEntity income) {
         Date date = Date.valueOf(LocalDate.now());
         IncomeEntity incomeEntity = new IncomeEntity()
                 .builder()
-                .userId(userId)
-                .description("lorem ipsum sim dolor amet as;ldjasop da[psik d[aspid[op ais dp[sai")
-                .amount(1000.0)
-                .date(date)
-                .category("Супер гроші")
+                .userId(income.getUserId())
+                .description(income.getDescription())
+                .amount(income.getAmount())
+                .date(income.getDate())
+                .category(income.getCategory())
                 .build();
         return ResponseEntity.ok(incomeService.save(incomeEntity));
-    }
+    }*/
 }

@@ -3,13 +3,9 @@ package org.example.lab2.Controller;
 import org.example.lab2.Model.ExpenseEntity;
 import org.example.lab2.Service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Date;
-import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/expense")
@@ -23,19 +19,6 @@ public class ExpenseController {
             model.addAttribute("expense", expense);
         });
         return "expense-details";
-    }
-
-    @PostMapping("/add")
-    public ResponseEntity<?> addExpense(@RequestParam Integer userId) {
-        Date date = Date.valueOf(LocalDate.now());
-        ExpenseEntity expense = new ExpenseEntity()
-                .builder()
-                .userId(userId)
-                .date(date)
-                .amount(100.0)
-                .description("Expense description")
-                .build();
-        return ResponseEntity.ok(expenseService.save(expense));
     }
 
     @PostMapping("/{id}/edit")
@@ -54,10 +37,23 @@ public class ExpenseController {
                 .map(incomeUser -> "redirect:/user/" + incomeUser.getUserId())
                 .orElse("redirect:/user/all");
     }
+
     @PostMapping("/{id}/delete")
-    public String editExpense(@PathVariable Integer id) {
+    public String deleteExpense(@PathVariable Integer id) {
         String userId = String.valueOf(expenseService.findById(id).get().getUserId());
         expenseService.delete(id);
         return "redirect:/user/" + userId;
     }
+
+    /*@PostMapping("/add")
+    public ResponseEntity<?> addExpense(@RequestAttribute ExpenseEntity expense) {
+        ExpenseEntity newExpense = new ExpenseEntity()
+                .builder()
+                .userId(expense.getUserId())
+                .date(expense.getDate())
+                .amount(expense.getAmount())
+                .description(expense.getDescription())
+                .build();
+        return ResponseEntity.ok(expenseService.save(newExpense));
+    }*/
 }
