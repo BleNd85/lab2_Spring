@@ -13,6 +13,8 @@ public interface ExpenseService {
 
     ExpenseEntity save(ExpenseEntity expense);
 
+    void update(ExpenseEntity expense, Double oldAmount);
+
     String delete(Integer id);
 
     Iterable<ExpenseEntity> findByUserId(Integer userId);

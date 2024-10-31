@@ -42,6 +42,15 @@ public class ExpenseServiceImplementation implements ExpenseService {
     }
 
     @Override
+    public void update(ExpenseEntity expense, Double oldAmount) {
+        userService.findById(expense.getUserId()).ifPresent(user -> {
+            user.setBudget(user.getBudget() + oldAmount - expense.getAmount());
+            userService.save(user);
+        });
+        expenseRepository.save(expense);
+    }
+
+    @Override
     public String delete(Integer id) {
         expenseRepository.deleteById(id);
         if (!expenseRepository.existsById(id)) {

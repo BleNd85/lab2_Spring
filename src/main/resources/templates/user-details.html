@@ -8,6 +8,7 @@
 <body>
 <section class="container">
     <h1 th:text="${user.name}"></h1>
+    <h2>Загальний баланс: <span th:text="${user.budget}"></span></h2>
     <div class="container-row">
         <div class="container">
             <h2><a class="a-text" th:href="@{/user/{id}/income/new(id=${user.id})}">Надходження</a></h2>

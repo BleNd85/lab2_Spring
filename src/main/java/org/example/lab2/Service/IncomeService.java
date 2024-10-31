@@ -1,5 +1,6 @@
 package org.example.lab2.Service;
 
+import org.example.lab2.Model.ExpenseEntity;
 import org.example.lab2.Model.IncomeEntity;
 
 import java.sql.Date;
@@ -12,6 +13,8 @@ public interface IncomeService {
     Optional<IncomeEntity> findById(Integer id);
 
     IncomeEntity save(IncomeEntity income);
+
+    void update(IncomeEntity income, Double oldAmount);
 
     String delete(Integer id);
 

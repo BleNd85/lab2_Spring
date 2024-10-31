@@ -41,20 +41,22 @@ public class IncomeController {
     }
 
     @PostMapping("/{id}/edit")
-    public String editExpense(@PathVariable Integer id, @ModelAttribute IncomeEntity income) {
+    public String editIncome(@PathVariable Integer id, @ModelAttribute IncomeEntity income) {
         incomeService.findById(id)
                 .map(oldIncome -> {
+                    Double oldAmount = oldIncome.getAmount();
                     oldIncome.setAmount(income.getAmount());
                     oldIncome.setDescription(income.getDescription());
                     oldIncome.setCategory(income.getCategory());
                     oldIncome.setDate(income.getDate());
-                    incomeService.save(oldIncome);
+                    incomeService.update(oldIncome, oldAmount);
                     return null;
                 });
         return incomeService.findById(id)
                 .map(incomeUser -> "redirect:/user/" + incomeUser.getUserId())
                 .orElse("redirect:/user/all");
     }
+
     @PostMapping("/{id}/delete")
     public String editExpense(@PathVariable Integer id) {
         String userId = String.valueOf(incomeService.findById(id).get().getUserId());

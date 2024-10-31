@@ -42,11 +42,12 @@ public class ExpenseController {
     public String editExpense(@PathVariable Integer id, @ModelAttribute ExpenseEntity expense) {
         expenseService.findById(id)
                 .map(oldExpense -> {
+                    Double oldAmount = oldExpense.getAmount();
                     oldExpense.setAmount(expense.getAmount());
                     oldExpense.setDescription(expense.getDescription());
                     oldExpense.setCategory(expense.getCategory());
                     oldExpense.setDate(expense.getDate());
-                    expenseService.save(oldExpense);
+                    expenseService.update(oldExpense, oldAmount);
                     return null;
                 });
         return expenseService.findById(id)
