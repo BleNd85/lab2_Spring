@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -44,12 +47,23 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public String getUserById(@PathVariable Integer id, Model model) {
+    public String getUserById(@PathVariable Integer id, Model model,
+                              @RequestParam(required = false) Date startDate,
+                              @RequestParam(required = false) Date endDate) {
         userService.findById(id).ifPresent(user -> {
             model.addAttribute("user", user);
         });
-        model.addAttribute("incomes", incomeService.findByUserId(id));
-        model.addAttribute("expenses", expenseService.findByUserId(id));
+        if (startDate == null || endDate == null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            startDate = new Date(calendar.getTimeInMillis());
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+            endDate = new Date(calendar.getTimeInMillis());
+        }
+        model.addAttribute("incomes", incomeService.findByUserIdAndDateRange(id, startDate, endDate));
+        model.addAttribute("expenses", expenseService.findByUserIdAndDateRange(id, startDate, endDate));
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
         return "user-details";
     }
 

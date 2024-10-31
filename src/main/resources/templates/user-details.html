@@ -16,11 +16,26 @@
                 <h3>Cума: <span class="card-text" th:text="${income.amount}"></span></h3>
                 <h3>Опис: </h3>
                 <p th:text="${income.description}"></p>
-                <p th:text="${income.date}"></p>
+                <p th:text="${#dates.format(income.date, 'dd-MM-yyyy')}"></p>
                 <a th:href="@{'/income/'+${income.id}}">
                     <button class="button">Змінити</button>
                 </a>
             </div>
+        </div>
+        <div class="container">
+            <form th:action="@{/user/{id}(id=${user.id})}" method="get">
+                <div class="input-container">
+                    <label for="startDate">Початкова дата</label>
+                    <input type="date" id="startDate" name="startDate" th:value="${startDate}">
+                </div>
+                <div class="input-container">
+                    <label for="endDate">Кінцева дата</label>
+                    <input type="date" id="endDate" name="endDate" th:value="${endDate}">
+                </div>
+                <div class="input-container">
+                    <button style="width: 100%" type="submit" class="button">Фільтрувати</button>
+                </div>
+            </form>
         </div>
         <div class="container">
             <h2><a class="a-text" th:href="@{/user/{id}/expense/new(id=${user.id})}">Витрати</a></h2>
@@ -29,7 +44,7 @@
                 <h3>Cума: <span class="card-text" th:text="${expense.amount}"></span></h3>
                 <h3>Опис: </h3>
                 <p th:text="${expense.description}"></p>
-                <p th:text="${expense.date}"></p>
+                <p th:text="${#dates.format(expense.date, 'dd-MM-yyyy')}"></p>
                 <a th:href="@{'/expense/'+${expense.id}}">
                     <button class="button">Змінити</button>
                 </a>

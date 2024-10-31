@@ -11,19 +11,19 @@
         <form th:action="@{/user/{id}/expense/new/create(id=${user.id})}" th:object="${expense}" method="post">
             <div class="input-container">
                 <label class="label" for="type">Категорія</label>
-                <input class="input" type="text" th:field="*{category}" id="type">
+                <input class="input" type="text" th:field="*{category}" id="type" required>
             </div>
             <div class="input-container">
                 <label class="label" for="amount">Сума</label>
-                <input class="input" type="number" th:field="*{amount}" id="amount">
+                <input class="input" type="number" th:field="*{amount}" id="amount" required>
             </div>
             <div class="input-container">
                 <label class="label" for="description">Опис</label>
-                <textarea rows="6" cols="20" class="textarea" th:field="*{description}" id="description"></textarea>
+                <textarea rows="6" cols="20" class="textarea" th:field="*{description}" id="description" required></textarea>
             </div>
             <div class="input-container">
                 <label class="label" for="date">Опис</label>
-                <input type="date" class="input" th:field="*{date}" id="date">
+                <input type="date" class="input" th:field="*{date}" id="date" required>
             </div>
             <div class="input-container">
                 <button type="submit" class="button">Створити</button>

@@ -33,14 +33,12 @@ h1, h2, h3, h4, p {
 }
 
 .container-row {
-    display: flex;
-    align-items: baseline;
-    flex-direction: row;
-    justify-content: space-around;
-    justify-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    width: 100%;
+    display: grid;
+    grid-template-columns: 5fr 2fr 5fr;
+    justify-content: center;
+    grid-column-gap: 3rem;
+    align-items: start;
+    width: 60%;
 }
 
 .card {

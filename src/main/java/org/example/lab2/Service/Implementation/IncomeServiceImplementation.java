@@ -7,7 +7,10 @@ import org.example.lab2.Repository.UserRepository;
 import org.example.lab2.Service.IncomeService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class IncomeServiceImplementation implements IncomeService {
@@ -45,5 +48,13 @@ public class IncomeServiceImplementation implements IncomeService {
     @Override
     public Iterable<IncomeEntity> findByUserId(Integer userId) {
         return incomeRepository.findByUserId(userId);
+    }
+
+    @Override
+    public List<IncomeEntity> findByUserIdAndDateRange(Integer userId, Date startDate, Date endDate) {
+        return incomeRepository.findByUserIdAndDateBetween(userId, startDate, endDate)
+                .stream()
+                .sorted((income1, income2) -> income2.getDate().compareTo(income1.getDate()))
+                .collect(Collectors.toList());
     }
 }
