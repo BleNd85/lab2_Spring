@@ -28,7 +28,7 @@ public class IncomeServiceImplementation implements IncomeService {
 
     @Override
     public Iterable<IncomeEntity> findAll() {
-        return null;
+        return incomeRepository.findAll();
     }
 
     @Override
