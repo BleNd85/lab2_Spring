@@ -3,8 +3,10 @@ package org.example.lab2.Service.Implementation;
 import org.example.lab2.Model.ExpenseEntity;
 import org.example.lab2.Repository.ExpenseRepository;
 import org.example.lab2.Service.ExpenseService;
+import org.example.lab2.Service.Sort.SortItemsByCategory;
 import org.example.lab2.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -16,14 +18,21 @@ import java.util.stream.Collectors;
 public class ExpenseServiceImplementation implements ExpenseService {
     private ExpenseRepository expenseRepository;
     private UserService userService;
+    private SortItemsByCategory<ExpenseEntity> categorySorter;
 
     @Autowired
     public void setExpenseRepository(ExpenseRepository expenseRepository) {
         this.expenseRepository = expenseRepository;
     }
+
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setCategorySorter(@Qualifier("sortExpensesByCategory") SortItemsByCategory<ExpenseEntity> categorySorter) {
+        this.categorySorter = categorySorter;
     }
 
     /*public ExpenseServiceImplementation(ExpenseRepository expenseRepository, UserService userService) {
@@ -48,6 +57,8 @@ public class ExpenseServiceImplementation implements ExpenseService {
             userService.save(user);
             return null;
         });
+        expense.setCategory(Character.toUpperCase(expense.getCategory().charAt(0))
+                + expense.getCategory().substring(1).toLowerCase());
         return expenseRepository.save(expense);
     }
 
@@ -76,10 +87,20 @@ public class ExpenseServiceImplementation implements ExpenseService {
     }
 
     @Override
+    public Double totalSum(List<ExpenseEntity> expenses) {
+        return expenses.stream().mapToDouble(ExpenseEntity::getAmount).sum();
+    }
+
+    @Override
     public List<ExpenseEntity> findByUserIdAndDateRange(Integer userId, Date startDate, Date endDate) {
         return expenseRepository.findByUserIdAndDateBetween(userId, startDate, endDate)
                 .stream()
                 .sorted((expense1, expense2) -> expense2.getDate().compareTo(expense1.getDate()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ExpenseEntity> sortByCategory(List<ExpenseEntity> expenses) {
+        return categorySorter.sortByCategory(expenses);
     }
 }

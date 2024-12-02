@@ -1,6 +1,5 @@
 package org.example.lab2.Service;
 
-import org.example.lab2.Model.ExpenseEntity;
 import org.example.lab2.Model.IncomeEntity;
 
 import java.sql.Date;
@@ -20,5 +19,9 @@ public interface IncomeService {
 
     Iterable<IncomeEntity> findByUserId(Integer userId);
 
+    Double totalSum(List<IncomeEntity> incomes);
+
     List<IncomeEntity> findByUserIdAndDateRange(Integer userId, Date startDate, Date endDate);
+
+    List<IncomeEntity> sortByCategory(List<IncomeEntity> incomes);
 }

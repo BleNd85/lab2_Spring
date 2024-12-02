@@ -19,6 +19,10 @@ public interface ExpenseService {
 
     Iterable<ExpenseEntity> findByUserId(Integer userId);
 
+    Double totalSum(List<ExpenseEntity> expenses);
+
     List<ExpenseEntity> findByUserIdAndDateRange(Integer userId, Date startDate, Date endDate);
+
+    List<ExpenseEntity> sortByCategory(List<ExpenseEntity> expenses);
 
 }

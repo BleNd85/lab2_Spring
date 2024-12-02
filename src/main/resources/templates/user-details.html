@@ -33,6 +33,10 @@
                     <label for="endDate">Кінцева дата</label>
                     <input type="date" id="endDate" name="endDate" th:value="${endDate}">
                 </div>
+                <div>
+                    <label for="sort">Сортувати за категорією</label>
+                    <input type="checkbox" class="input-container" value="true" th:checked="${sort}" id="sort" name="sort" th:value="true">
+                </div>
                 <div class="input-container">
                     <button style="width: 100%" type="submit" class="button">Фільтрувати</button>
                 </div>
