@@ -4,6 +4,7 @@ import org.example.lab2.Model.ExpenseEntity;
 import org.example.lab2.Repository.ExpenseRepository;
 import org.example.lab2.Service.ExpenseService;
 import org.example.lab2.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -16,10 +17,19 @@ public class ExpenseServiceImplementation implements ExpenseService {
     private ExpenseRepository expenseRepository;
     private UserService userService;
 
-    public ExpenseServiceImplementation(ExpenseRepository expenseRepository, UserService userService) {
+    @Autowired
+    public void setExpenseRepository(ExpenseRepository expenseRepository) {
         this.expenseRepository = expenseRepository;
+    }
+    @Autowired
+    public void setUserService(UserService userService) {
         this.userService = userService;
     }
+
+    /*public ExpenseServiceImplementation(ExpenseRepository expenseRepository, UserService userService) {
+        this.expenseRepository = expenseRepository;
+        this.userService = userService;
+    }*/
 
     @Override
     public Iterable<ExpenseEntity> findAll() {
