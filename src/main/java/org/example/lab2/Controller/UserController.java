@@ -60,6 +60,7 @@ public class UserController {
 
         userService.findById(id).ifPresent(user -> {
             model.addAttribute("user", user);
+            model.addAttribute("balanceStatus", userService.balanceStatus(user.getBudget()));
         });
 
         model.addAttribute("incomeForThisTime", incomeService.totalSum(incomes));

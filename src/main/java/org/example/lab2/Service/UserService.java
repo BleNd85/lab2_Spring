@@ -13,4 +13,5 @@ public interface UserService {
 
     String deleteById(Integer id);
 
+    String balanceStatus(Double balance);
 }
