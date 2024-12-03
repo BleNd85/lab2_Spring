@@ -10,12 +10,14 @@
     <h1 th:text="${user.name}"></h1>
     <div th:switch="${balanceStatus}">
         <h2 th:case="'zero'">
-            Загальний баланс: <span style="color: grey;" th:text="${user.budget ?: '0'}"></span>грн
+            Загальний баланс: <span style="color: grey;" th:text="${user.budget ?: '0'}"></span> грн
         </h2>
         <h2 th:case="'positive'">
-            Загальний баланс: <span style="color: green;" th:text="${user.budget ?: '0'}"></span>грн</h2>
+            Загальний баланс: <span style="color: green;" th:text="${user.budget ?: '0'}"></span> грн
+        </h2>
         <h2 th:case="'negative'">
-            Загальний баланс: <span style="color: red;" th:text="${user.budget ?: '0'}"></span>грн</h2>
+            Загальний баланс: <span style="color: red;" th:text="${user.budget ?: '0'}"></span> грн
+        </h2>
     </div>
     <div class="container-row">
         <div class="container">
